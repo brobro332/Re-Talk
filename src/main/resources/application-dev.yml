@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: re-talk
+
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  data:
+    mongodb:
+      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:${MONGO_PORT}/${DB_NAME}?authSource=admin
+
+  rabbitmq:
+    host: localhost
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASS}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.springframework.data.mongodb.core.MongoTemplate: debug
