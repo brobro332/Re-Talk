@@ -57,7 +57,7 @@ class ChatParser(
         val finalContent = msg.contentBuffer.toString().trim()
         if (finalContent.isEmpty()) return
 
-        val (contentType, isDetailed) = ChatContentType.classify(finalContent)
+        val analysis = ChatContentType.analyze(finalContent)
 
         val messageDto = ChatMessageDto(
             roomId = msg.roomId,
@@ -65,9 +65,11 @@ class ChatParser(
             sender = msg.sender,
             content = securityUtils.encrypt(finalContent),
             fingerprint = securityUtils.generateFingerprint(msg.roomId, msg.sentAt, msg.sender, finalContent),
-            contentType = contentType,
-            isDetailed = isDetailed
+            primaryContentType = analysis.primaryType,
+            isDetailed = analysis.isDetailed,
+            contentTypes = analysis.types
         )
         rabbitTemplate.convertAndSend("chat.exchange", "chat.parse.routing.key", messageDto)
     }
 }
+

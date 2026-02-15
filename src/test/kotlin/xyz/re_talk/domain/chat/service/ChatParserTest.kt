@@ -269,7 +269,7 @@ class ChatParserTest {
         }
 
         @Test
-        fun `이모지가 포함된 메시지를 파싱한다`(): Unit = runBlocking {
+        fun `카카오톡 미니 이모티콘이 포함된 메시지를 파싱한다`(): Unit = runBlocking {
             // Given
             val chatData = "2024년 1월 1일 오후 6:00, User : 안녕하세요 👋 반갑습니다 😊"
 

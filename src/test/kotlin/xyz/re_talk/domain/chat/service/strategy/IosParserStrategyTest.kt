@@ -230,7 +230,7 @@ class IosParserStrategyTest {
         }
 
         @Test
-        fun `이모지가 포함된 메시지를 파싱한다`() {
+        fun `카카오톡 미니 이모티콘이 포함된 메시지를 파싱한다`() {
             // Given
             val line = "2023. 5. 15. 오후 1:26, User : 안녕하세요 👋😊"
 
