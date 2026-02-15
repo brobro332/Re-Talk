@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class SecurityUtils (
-    @Value($$"${AES_KEY}") private val rawKey: String
+    @Value($$"${security.key.aes-256}") private val rawKey: String
 ) {
     private lateinit var keySpec: SecretKeySpec
     private val algorithm = "AES/CBC/PKCS5Padding"
