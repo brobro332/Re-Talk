@@ -33,7 +33,7 @@ class ChatParser(
             var currentMsg: PendingMessage? = null
 
             lines.forEach { line ->
-                when (val result = strategy.parse(line, roomId)) {
+                when (val result = strategy.parse(line)) {
                     is ParserResult.NewMessage -> {
                         currentMsg?.let { processAndSend(it) }
                         currentMsg = PendingMessage(

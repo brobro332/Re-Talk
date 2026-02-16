@@ -95,7 +95,7 @@ class IosParserStrategyTest {
             val line = "2023. 5. 15. 오후 1:26, 홍길동 : 안녕하세요"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -111,7 +111,7 @@ class IosParserStrategyTest {
             val line = "2023. 5. 15. 오후 1:26, User： 전각 콜론"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -126,7 +126,7 @@ class IosParserStrategyTest {
             val line = "2023.5.15.오후 3:45, Tester : 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -141,7 +141,7 @@ class IosParserStrategyTest {
             val line = "2024. 1. 1. 오전 9:00, 김철수 : 새해 복 많이 받으세요"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -157,7 +157,7 @@ class IosParserStrategyTest {
             val line = "2023. 5. 15. 오후 1:26, 홍 길 동 : 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -171,7 +171,7 @@ class IosParserStrategyTest {
             val line = "2023. 5. 15. 오후 1:26, User : 시간은 3:00입니다"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -185,7 +185,7 @@ class IosParserStrategyTest {
             val line = "2023년 5월 15일 월요일"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -197,7 +197,7 @@ class IosParserStrategyTest {
             val line = "   "
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -209,7 +209,7 @@ class IosParserStrategyTest {
             val line = "이것은 이전 메시지의 이어지는 내용입니다"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.AppendToPrev, result)
@@ -221,7 +221,7 @@ class IosParserStrategyTest {
             val line = """2023. 5. 15. 오후 1:26, User : !@#$%^&*()_+-=[]{}"""
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -235,7 +235,7 @@ class IosParserStrategyTest {
             val line = "2023. 5. 15. 오후 1:26, User : 안녕하세요 👋😊"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -249,7 +249,7 @@ class IosParserStrategyTest {
             val line = "2023. 12. 31. 오후 11:59, User : 마지막 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -263,7 +263,7 @@ class IosParserStrategyTest {
             val line = "2024. 1. 1. 오전 12:00, User : 새해 첫 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)

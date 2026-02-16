@@ -104,7 +104,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, 홍길동 : 안녕하세요"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -120,7 +120,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 1월 1일 오전 9:00, 김철수 : 새해 복 많이 받으세요"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -136,7 +136,7 @@ class AndroidParserStrategyTest {
             val line = "2024년  8월  5일  오후  11:59,  테스터  :  메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -151,7 +151,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, 홍 길 동 : 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -165,7 +165,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : 시간은 3:00입니다"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -179,7 +179,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : 안녕, 반가워"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -193,7 +193,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -205,7 +205,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 12월 31일 오전 11:59"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -217,7 +217,7 @@ class AndroidParserStrategyTest {
             val line = "   "
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -229,7 +229,7 @@ class AndroidParserStrategyTest {
             val line = ""
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.Skip, result)
@@ -241,7 +241,7 @@ class AndroidParserStrategyTest {
             val line = "이것은 이전 메시지의 이어지는 내용입니다"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.AppendToPrev, result)
@@ -253,7 +253,7 @@ class AndroidParserStrategyTest {
             val line = """2024년 8월 5일 오후 2:30, User : !@#${'$'}%^&*()_+-=[]{}"""
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -267,7 +267,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : 안녕하세요 👋😊"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -281,7 +281,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 12월 31일 오후 11:59, User : 마지막 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -295,7 +295,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 1월 1일 오전 12:00, User : 자정 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -309,7 +309,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 1월 5일 오전 9:05, User : 테스트"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -323,7 +323,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 12월 25일 오후 10:30, User : 크리스마스"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -338,7 +338,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : "
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -352,7 +352,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User_123 : 메시지"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -367,7 +367,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : $longContent"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -386,7 +386,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 2월 29일 오전 10:00, User : 윤년"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -400,7 +400,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 1월 1일 오전 12:00, User : 새해"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -412,7 +412,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 12월 31일 오후 11:59, User : 송년"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -424,7 +424,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오전 1:00, User : 새벽"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -436,7 +436,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 12:00, User : 점심"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -450,7 +450,7 @@ class AndroidParserStrategyTest {
             val line = "2024년 8월 5일 오후 2:30, User : https://example.com"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertTrue(result is ParserResult.NewMessage)
@@ -464,7 +464,7 @@ class AndroidParserStrategyTest {
             val line = "\n"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then: trim 후 빈 문자열이 되므로 Skip
             assertEquals(ParserResult.Skip, result)
@@ -476,7 +476,7 @@ class AndroidParserStrategyTest {
             val line = "\t일반 텍스트"
 
             // When
-            val result = parser.parse(line, "room1")
+            val result = parser.parse(line)
 
             // Then
             assertEquals(ParserResult.AppendToPrev, result)

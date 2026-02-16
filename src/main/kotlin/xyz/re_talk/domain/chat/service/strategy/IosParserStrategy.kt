@@ -13,7 +13,7 @@ class IosParserStrategy : ChatParserStrategy {
             Regex("""^\d{4}\.\s*\d{1,2}\.""").containsMatchIn(trimmed)
     }
 
-    override fun parse(line: String, roomId: String): ParserResult {
+    override fun parse(line: String): ParserResult {
         if (line.isBlank()) return ParserResult.Skip
 
         val trimmedLine = line.trim()

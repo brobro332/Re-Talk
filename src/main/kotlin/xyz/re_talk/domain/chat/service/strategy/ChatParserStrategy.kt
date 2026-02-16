@@ -2,7 +2,7 @@ package xyz.re_talk.domain.chat.service.strategy
 
 public interface ChatParserStrategy {
     fun isSupport(firstLine: String): Boolean
-    fun parse(line: String, roomId: String): ParserResult
+    fun parse(line: String): ParserResult
 }
 
 sealed class ParserResult {

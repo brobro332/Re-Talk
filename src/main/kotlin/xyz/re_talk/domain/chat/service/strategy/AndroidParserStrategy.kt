@@ -11,7 +11,7 @@ class AndroidParserStrategy : ChatParserStrategy {
         return firstLine.contains("년") && firstLine.contains("월") && firstLine.contains("일") && (firstLine.contains("오전") || firstLine.contains("오후"))
     }
 
-    override fun parse(line: String, roomId: String): ParserResult {
+    override fun parse(line: String): ParserResult {
         val trimmedLine = line.trim()
         if (trimmedLine.isEmpty() || dateHeaderPattern.matches(trimmedLine)) return ParserResult.Skip
 
