@@ -31,3 +31,7 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.springframework.data.mongodb.core.MongoTemplate: debug
+
+security:
+  key:
+    aes-256: ${AES_KEY:DEVELOPMENT_KEY_THIRTY_TWO_BYTE}
