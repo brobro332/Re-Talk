@@ -3,12 +3,13 @@ package xyz.re_talk.domain.chat.service.strategy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import xyz.re_talk.global.common.BaseTest
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @DisplayName("AndroidParserStrategy 단위 테스트")
-class AndroidParserStrategyTest {
+class AndroidParserStrategyTest : BaseTest() {
     private val parser = AndroidParserStrategy()
 
     @Nested

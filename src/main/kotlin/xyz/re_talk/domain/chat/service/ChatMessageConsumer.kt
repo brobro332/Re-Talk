@@ -1,6 +1,9 @@
 package xyz.re_talk.domain.chat.service
 
+import org.slf4j.LoggerFactory
+import org.slf4j.MDC
 import org.springframework.amqp.rabbit.annotation.RabbitListener
+import org.springframework.messaging.handler.annotation.Header
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import xyz.re_talk.domain.chat.document.ChatMessage
@@ -8,6 +11,7 @@ import xyz.re_talk.domain.chat.dto.ChatMessageDto
 import xyz.re_talk.domain.chat.entity.ChatMessageEntity
 import xyz.re_talk.domain.chat.repository.ChatMessageEntityRepository
 import xyz.re_talk.domain.chat.repository.ChatMessageRepository
+import xyz.re_talk.global.common.filter.TraceIdFilter
 import xyz.re_talk.global.config.RabbitMqConfig
 import java.time.LocalDateTime
 
@@ -16,11 +20,21 @@ class ChatMessageConsumer(
     private val mongoRepository: ChatMessageRepository,
     private val postgresRepository: ChatMessageEntityRepository
 ) {
+    private val logger = LoggerFactory.getLogger(ChatMessageConsumer::class.java)
 
     @RabbitListener(queues = [RabbitMqConfig.QUEUE])
     @Transactional
-    fun consume(dto: ChatMessageDto) {
+    fun consume(
+        dto: ChatMessageDto,
+        @Header(TraceIdFilter.TRACE_ID_KEY, required = false) traceId: String?
+    ) {
+        // RabbitMQ 헤더에서 traceId 추출하여 MDC에 설정
+        val currentTraceId = traceId ?: "unknown"
+        MDC.put(TraceIdFilter.TRACE_ID_KEY, currentTraceId)
+
         try {
+            logger.info("[traceId: $currentTraceId] 메시지 소비 시작: roomId=${dto.roomId}, sender=${dto.sender}")
+
             val mongoDocument = ChatMessage(
                 roomId = dto.roomId,
                 sender = dto.sender,
@@ -33,7 +47,7 @@ class ChatMessageConsumer(
                 mongoRepository.save(mongoDocument)
             } catch (e: Exception) {
                 if (e.message?.contains("duplicate key") == true) {
-                    println("⚠️ 중복 메시지 감지 (fingerprint: ${dto.fingerprint})")
+                    logger.warn("[traceId: $currentTraceId] ⚠️ 중복 메시지 감지 (fingerprint: ${dto.fingerprint})")
                     return
                 }
                 throw e
@@ -50,10 +64,14 @@ class ChatMessageConsumer(
             )
 
             postgresRepository.save(postgresEntity)
+
+            logger.info("[traceId: $currentTraceId] 메시지 저장 완료: MongoDB=${savedDocument.id}, PostgreSQL 저장됨")
         } catch (e: Exception) {
-            println("❌ 메시지 저장 실패: ${e.message}")
-            e.printStackTrace()
+            logger.error("[traceId: $currentTraceId] ❌ 메시지 저장 실패: ${e.message}", e)
             throw e
+        } finally {
+            // MDC 정리
+            MDC.remove(TraceIdFilter.TRACE_ID_KEY)
         }
     }
 

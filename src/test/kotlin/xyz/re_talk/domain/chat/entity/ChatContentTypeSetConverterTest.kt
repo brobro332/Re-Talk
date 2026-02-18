@@ -3,9 +3,10 @@ package xyz.re_talk.domain.chat.entity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import xyz.re_talk.global.common.BaseTest
 
 @DisplayName("ChatContentTypeSetConverter 테스트")
-class ChatContentTypeSetConverterTest {
+class ChatContentTypeSetConverterTest : BaseTest() {
 
     private val converter = ChatContentTypeSetConverter()
 
