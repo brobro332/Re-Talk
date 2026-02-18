@@ -2,8 +2,9 @@ package xyz.re_talk.domain.chat.entity
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
+import xyz.re_talk.global.common.BaseTest
 
-class ChatContentTypeQuickTest {
+class ChatContentTypeQuickTest : BaseTest() {
 
     @Test
     fun `jpg와 jpeg 모두 PHOTO로 인식된다`() {

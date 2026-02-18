@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import xyz.re_talk.domain.chat.repository.ChatMessageRepository
 import xyz.re_talk.domain.chat.repository.ChatMessageEntityRepository
+import xyz.re_talk.global.common.BaseTest
 import java.time.LocalDateTime
 
 @DisplayName("ChatMessageConsumer - 날짜 파싱 테스트")
-class ChatMessageConsumerDateParseTest {
+class ChatMessageConsumerDateParseTest : BaseTest() {
 
     private val mongoRepository = mock(ChatMessageRepository::class.java)
     private val postgresRepository = mock(ChatMessageEntityRepository::class.java)

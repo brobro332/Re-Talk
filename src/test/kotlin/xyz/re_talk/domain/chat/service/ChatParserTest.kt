@@ -11,11 +11,12 @@ import org.springframework.mock.web.MockMultipartFile
 import xyz.re_talk.domain.chat.dto.ChatMessageDto
 import xyz.re_talk.domain.chat.service.strategy.AndroidParserStrategy
 import xyz.re_talk.domain.chat.service.strategy.IosParserStrategy
+import xyz.re_talk.global.common.BaseTest
 import xyz.re_talk.global.util.SecurityUtils
 import kotlin.test.assertEquals
 
 @DisplayName("ChatParser 통합 테스트")
-class ChatParserTest {
+class ChatParserTest : BaseTest() {
     private val securityUtils = mockk<SecurityUtils>()
     private val rabbitTemplate = mockk<RabbitTemplate>()
     private val strategies = listOf(AndroidParserStrategy(), IosParserStrategy())

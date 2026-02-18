@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.amqp.support.converter.SimpleMessageConverter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import xyz.re_talk.global.common.filter.TraceIdFilter
 
 @Configuration
 class RabbitMqConfig {
@@ -27,6 +28,16 @@ class RabbitMqConfig {
     fun rabbitTemplate(connectionFactory: ConnectionFactory): RabbitTemplate {
         val template = RabbitTemplate(connectionFactory)
         template.messageConverter = SimpleMessageConverter()
+
+        // 모든 메시지에 traceId 자동 추가
+        template.setBeforePublishPostProcessors(
+            org.springframework.amqp.core.MessagePostProcessor { message ->
+                val traceId = TraceIdFilter.getCurrentTraceId()
+                message.messageProperties.setHeader(TraceIdFilter.TRACE_ID_KEY, traceId)
+                message
+            }
+        )
+
         return template
     }
 }
